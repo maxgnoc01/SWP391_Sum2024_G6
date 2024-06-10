@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manager Home</title>
+</head>
+<body>
+<div class="sidebar">
+    <a href="#" th:onclick="|showViewSemesters()|">View Semester</a>
+    <a href="#" th:onclick="|showCreateSemester()|">Create Semester</a>
+    <a href="/logout">Logout</a>
+</div>
+<div class="content" id="content">
+    <!-- View Semesters Section -->
+    <div id="viewSemesters" style="display: none;">
+        <h1>View Semesters</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Semester Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="semester : ${semesters}">
+					<td th:text ="${semester.id}"></td>
+					<td th:text ="${semester.semesterName}"></td>
+                    <td>
+                        <form th:action="@{/manager/deleteSemester/{id}(id=${semester.id})}" method="post">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Create Semester Section -->
+    <div id="createSemester" style="display: none;">
+        <h1>Create Semester</h1>
+        <form th:action="@{/manager/createSemester}" method="post">
+            <label for="semesterName">Semester Name:</label>
+            <input type="text" id="semesterName" name="semesterName" required>
+            <button type="submit">Create</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function showViewSemesters() {
+        document.getElementById('viewSemesters').style.display = 'block';
+        document.getElementById('createSemester').style.display = 'none';
+    }
+    function showCreateSemester() {
+        document.getElementById('viewSemesters').style.display = 'none';
+        document.getElementById('createSemester').style.display = 'block';
+    }
+</script>
+</body>
+</html>
