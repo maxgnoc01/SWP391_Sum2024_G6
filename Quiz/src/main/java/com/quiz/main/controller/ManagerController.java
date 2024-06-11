@@ -44,4 +44,28 @@ public class ManagerController {
         semesterRepository.deleteById(id);
         return "redirect:/manager/home";
     }
+
+    
+    // course 
+
+    @GetMapping("/courses")
+    @ResponseBody
+    public List<Course> getCoursesBySemester(@RequestParam String semester) {
+        return courseRepository.findBySemester(semester);
+    }
+    
+    @PostMapping("/addCourse")
+    public String addCourse(@RequestParam String semester, @RequestParam String courseName) {
+        Course course = new Course();
+        course.setSemester(semester);
+        course.setCourseName(courseName);
+        courseRepository.save(course);
+        return "redirect:/manager/home";
+    }
+
+    @PostMapping("/deleteCourse/{id}")
+    public String deleteCourse(@PathVariable Long id) {
+        courseRepository.deleteById(id);
+        return "redirect:/manager/home";
+    }
 }

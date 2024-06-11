@@ -2,11 +2,66 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Manager Home</title>
+    <script>
+        function showViewSemesters() {
+            document.getElementById('viewSemesters').style.display = 'block';
+            document.getElementById('createSemester').style.display = 'none';
+            document.getElementById('viewCourses').style.display = 'none';
+        }
+        function showCreateSemester() {
+            document.getElementById('viewSemesters').style.display = 'none';
+            document.getElementById('createSemester').style.display = 'block';
+            document.getElementById('viewCourses').style.display = 'none';
+        }
+        function viewCourses(semester) {
+            fetch(`/manager/courses?semester=${semester}`)
+                .then(response => response.json())
+                .then(data => {
+                    let coursesHtml = '<h2>Courses for ' + semester + '</h2><ul>';
+                    data.forEach(course => {
+                        coursesHtml += `<li>${course.courseName} <button onclick="deleteCourse(${course.id})">Delete</button></li>`;
+                    });
+                    coursesHtml += '</ul>';
+                    document.getElementById('coursesContainer').innerHTML = coursesHtml;
+                    document.getElementById('viewCourses').style.display = 'block';
+                    document.getElementById('viewSemesters').style.display = 'none';
+                    document.getElementById('createSemester').style.display = 'none';
+                    document.getElementById('semester').value = semester;
+                });
+        }
+
+        function deleteCourse(courseId) {
+            fetch(`/manager/deleteCourse/${courseId}`, { method: 'POST' })
+                .then(() => {
+                    alert('Course deleted');
+                    location.reload(); // Refresh the page
+                });
+        }
+
+        function addCourse() {
+            const semester = document.getElementById('semester').value;
+            const courseName = document.getElementById('courseName').value;
+            fetch('/manager/addCourse', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    'semester': semester,
+                    'courseName': courseName
+                })
+            })
+            .then(() => {
+                alert('Course added');
+                location.reload(); // Refresh the page
+            });
+        }
+    </script>
 </head>
 <body>
 <div class="sidebar">
-    <a href="#" th:onclick="|showViewSemesters()|">View Semester</a>
-    <a href="#" th:onclick="|showCreateSemester()|">Create Semester</a>
+    <a href="#" onclick="showViewSemesters()">View Semester</a>
+    <a href="#" onclick="showCreateSemester()">Create Semester</a>
     <a href="/logout">Logout</a>
 </div>
 <div class="content" id="content">
@@ -23,8 +78,9 @@
             </thead>
             <tbody>
                 <tr th:each="semester : ${semesters}">
-					<td th:text ="${semester.id}"></td>
-					<td th:text ="${semester.semesterName}"></td>
+                    <td th:text="${semester.id}"></td>
+                    <!--  anhx em giup em cai nay voi -->
+                    <td><a href="#" th:text="${semester.semesterName}" th:onclick="viewCourses( ${semester.semesterName})"></a></td>
                     <td>
                         <form th:action="@{/manager/deleteSemester/{id}(id=${semester.id})}" method="post">
                             <button type="submit">Delete</button>
@@ -34,6 +90,7 @@
             </tbody>
         </table>
     </div>
+    
     <!-- Create Semester Section -->
     <div id="createSemester" style="display: none;">
         <h1>Create Semester</h1>
@@ -43,17 +100,17 @@
             <button type="submit">Create</button>
         </form>
     </div>
-</div>
 
-<script>
-    function showViewSemesters() {
-        document.getElementById('viewSemesters').style.display = 'block';
-        document.getElementById('createSemester').style.display = 'none';
-    }
-    function showCreateSemester() {
-        document.getElementById('viewSemesters').style.display = 'none';
-        document.getElementById('createSemester').style.display = 'block';
-    }
-</script>
+    <!-- View Courses Section -->
+    <div id="viewCourses" style="display: none;">
+        <div id="coursesContainer"></div>
+        <h2>Add Course</h2>
+        <form id="addCourseForm" onsubmit="event.preventDefault(); addCourse();">
+            <input type="text" id="courseName" placeholder="Course Name" required>
+            <input type="hidden" id="semester">
+            <button type="submit">Add Course</button>
+        </form>
+    </div>
+</div>
 </body>
 </html>
