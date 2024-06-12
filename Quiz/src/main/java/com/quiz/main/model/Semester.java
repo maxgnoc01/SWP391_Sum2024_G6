@@ -17,6 +17,8 @@ public class Semester {
     @Column(nullable = false, unique = true)
     private String semesterName;
 
+    public Semester(){    	
+    }
     // Getters and setters
     public Long getId() {
         return id;

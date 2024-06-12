@@ -15,33 +15,35 @@ public class Course {
     private String courseName;
     
     @Column(nullable = false, unique = true)
-    private String semester;
+    private String semesterName;
 
     // Getters and setters
     
     public Course() {
     }
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getCourseName() {
-        return courseName;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
+	public String getCourseName() {
+		return courseName;
+	}
 
-    public String getSemester() {
-        return semester;
-    }
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
+	}
 
-    public void setSemester(String semester) {
-        this.semester = semester;
-    }
+	public String getSemesterName() {
+		return semesterName;
+	}
+
+	public void setSemesterName(String semesterName) {
+		this.semesterName = semesterName;
+	}
+    
 }

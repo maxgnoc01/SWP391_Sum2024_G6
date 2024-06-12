@@ -1,18 +1,17 @@
 package com.quiz.main.controller;
 
-
-
+import com.quiz.main.model.Course;
 import com.quiz.main.model.Semester;
+import com.quiz.main.repository.CourseRepository;
 import com.quiz.main.repository.SemesterRepository;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
+
 
 @Controller
 @RequestMapping("/manager")
@@ -20,6 +19,9 @@ public class ManagerController {
 
     @Autowired
     private SemesterRepository semesterRepository;
+
+    @Autowired
+    private CourseRepository courseRepository;
 
     @GetMapping("/home")
     public String managerHome(Model model) {
@@ -44,28 +46,22 @@ public class ManagerController {
         semesterRepository.deleteById(id);
         return "redirect:/manager/home";
     }
-
-    
-    // course 
-
-    @GetMapping("/courses")
-    @ResponseBody
-    public List<Course> getCoursesBySemester(@RequestParam String semester) {
-        return courseRepository.findBySemester(semester);
+    @GetMapping("/viewCourses")
+    public ResponseEntity<List<Course>> viewCourses(@RequestParam String semesterName) {
+        List<Course> courses = courseRepository.findBySemesterName(semesterName);
+        return ResponseEntity.ok(courses);
     }
-    
-    @PostMapping("/addCourse")
-    public String addCourse(@RequestParam String semester, @RequestParam String courseName) {
-        Course course = new Course();
-        course.setSemester(semester);
-        course.setCourseName(courseName);
+
+    @GetMapping("/createCourse")
+    public String showCreateCourseForm(Model model) {
+        model.addAttribute("course", new Course());
+        model.addAttribute("semesters", semesterRepository.findAll());
+        return "createCourse";
+    }
+
+    @PostMapping("/createCourse")
+    public String createCourse(@ModelAttribute Course course, Model model) {
         courseRepository.save(course);
-        return "redirect:/manager/home";
-    }
-
-    @PostMapping("/deleteCourse/{id}")
-    public String deleteCourse(@PathVariable Long id) {
-        courseRepository.deleteById(id);
         return "redirect:/manager/home";
     }
 }
