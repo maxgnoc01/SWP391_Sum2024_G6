@@ -1,111 +1,259 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
-<style>
-    body {
-        font-family: 'Arial', sans-serif;
-        background-color: #f0f0f0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-    }
+<!-- Coding By CodingNepal - codingnepalweb.com -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SWP </title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <!-- Unicons -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <nav class="nav">
+        <a href="#" class="nav_logo">ExamOnline</a>
 
-    form {
-        background: white;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        width: 100%;
-        max-width: 320px;
-    }
+        <ul class="nav_items">
+          <li class="nav_item">
+            <a href="#home" class="nav_link">Home</a>
+            <a href="#hero" class="nav_link">About</a>
+            <a href="#features" class="nav_link">Services</a>
+            <a href="#contact" class="nav_link">Contact</a>
+          </li>
+        </ul>
 
-    h1 {
-        text-align: center;
-    }
+        <button class="button" id="form-open">Login</button>
+      </nav>
+    </header>
 
-    label {
-        display: block;
-        margin-top: 20px;
-        font-weight: bold;
-    }
+    <!-- login form  -->
+    <section class="home">
+      <div class="form_container">
+        <i class="uil uil-times form_close"></i>
+        <!-- Login From -->
+        <div class="form login_form">
+          <!--<form th:action="@{/login}" method="POST">
+            <h2>Login</h2>
 
-    input[type="text"],
-    input[type="password"] {
-        width: 100%;
-        padding: 10px;
-        margin-top: 5px;
-        border-radius: 5px;
-        border: 1px solid #ddd;
-        box-sizing: border-box;
-    }
+            <div class="input_box">
+              <input type="text" name="username" placeholder="Enter your username" required />
+              <i class="uil uil-envelope-alt email"></i>
+            </div>
+            <div class="input_box">
+              <input type="password" name="password" placeholder="Enter your password" required />
+              <i class="uil uil-lock password"></i>
+              <i class="uil uil-eye-slash pw_hide"></i>
+            </div>
 
-    button {
-        width: 100%;
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        background-color: #007bff;
-        color: white;
-        margin-top: 20px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
+            <div class="option_field">
+              <span class="checkbox">
+                <input id="check" type="submit" name="submit"/>
+              </span>
+              <a href="home.html" class="forgot_pw">Forgot password?</a>
+            </div>
 
-    button:hover {
-        background-color: #0056b3;
-    }
-    @media (min-width: 768px) {
-        form {
-            max-width: 480px;
-        }
-        button[type="submit"], button[type="button"] {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            color: white;
-            margin-top: 20px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+            <button class="button">Login Now</button>
 
-        button[type="submit"] {
-            background-color: #007bff;
-        }
+            <div class="login_signup">Don't have an account? <a href="home.html" id="signup">Signup</a></div>
+          </form>-->
+		  <form th:action="@{/login}" method="post">
+		              <h2>Login</h2>
+		      
+		              <div class="input_box">
+		                <input type="text" name="username" id="username" placeholder="Enter your username" required />
+		                <i class="uil uil-envelope-alt email"></i>
+		              </div>
+		              <div class="input_box">
+		                <input type="password" name="password" id="password" placeholder="Enter your password" required />
+		                <i class="uil uil-lock password"></i>
+		                <i class="uil uil-eye-slash pw_hide"></i>
+		              </div>
+		      
+		              <button class="button">Login Now</button>
+		      
+		              <div class="login_signup">Don't have an account? <a id="signup"><button type="button" onclick="location.href='/register'">Sign Up</button></a></div>
+		            </form>
+        </div>
+      </div>
+    </section>
+    <script th:src="@{/js/script.js}"></script>
 
-        button[type="submit"]:hover {
-            background-color: #0056b3;
-        }
+    <!-- main  -->
+    <main>
 
-        button[type="button"] {
-            background-color: #28a745;
-        }
+      <section class="hero" id="hero">
+        <h1 class="fire"></h1>
+        <h1 class="nie">Master Your Exams<br>Anytime, Anywhere</h1>
+        <p>Discover a seamless way to prepare for exams with our comprehensive online <br>resources designed for your success.</p>
+        <div class="hero-buttons">
+          <a href="#" class="btn">Join Now</a>
+          <a href="#" class="btn-secondary">Enroll Today</a>
+        </div>
 
-        button[type="button"]:hover {
-            background-color: #218838;
-        }
+        <div class="hero-image">
+          <img th:src="@{/images/qwgs07r7weogauqy59il.jpg}" alt="hero image">
+        </div>
+      </section>
 
-    }
-</style>
+      <section class="features" id="features">
+        <div class="feature">
+          <img th:src="@{/images/Screenshot2024-06-04_094043.png}" alt="Easy Access Icon">
+          <h2>Easy Access</h2>
+          <p>Prepare for your exams at any time.</p>
+        </div>
+        <div class="feature">
+          <img th:src="@{/images/Screenshot2024-06-04_094100.png}" alt="Interactive Tools Icon">
+          <h2>Interactive Tools</h2>
+          <p>Use advanced tools to aid learning.</p>
+        </div>
+        <div class="feature">
+          <img th:src="@{/images/Screenshot2024-06-04_094119.png}" alt="Expert Guidance Icon">
+          <h2>Expert Guidance</h2>
+          <p>Get tips from experienced educators.</p>
+        </div>
+      </section>
 
-<body>
+      <section class="why-choose" id="why-choose">
+        <p>Why Choose ExamOnline</p>
+        <h1>Achieve Excellence with </h1>
+        <h1>ExamOnline’s Premium</h1>
+        <h1>Features</h1>
+      </section>
 
-<h1>Login</h1>
-<form th:action="@{/login}" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" />
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" />
-    <div>
-        <input type="checkbox" name="remember-me" /> Remember me
+      <section class="feature-section">
+        <div class="features-left">
+          <div class="feature-item">
+            <img th:src="@{/images/Screenshot2024-06-04_101127.png}" alt="Personal Dashboard Icon">
+            <div class="feature-text">
+              <h2>Personal Dashboard</h2>
+              <p>Track progress and manage study <br>schedules.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <img th:src="@{/images/Screenshot2024-06-04_101145.png}" alt="Mock Exams Icon">
+            <div class="feature-text">
+              <h2>Mock Exams</h2>
+              <p>Simulate real exam conditions easily.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <img th:src="@{/images/Screenshot2024-06-04_101206.png}" alt="24/7 Support Icon">
+            <div class="feature-text">
+              <h2>24/7 Support</h2>
+              <p>Get help whenever you need it.</p>
+            </div>
+          </div>
+        </div>
+        <div class="features-right">
+          <img th:src="@{/images/ega1g2jxg6c2viot3c6o.jpg}" alt="Stack of Books Image">
+        </div>
+      </section>
+    </main>
+
+    <div class="wrapper">
+      <section class="study-materials" id="study-materials">
+        <div class="container">
+          <div class="image">
+            <img th:src="@{/images/gmtmgvw6lbwekk0rsnof.jpg}" alt="Books and notes on a table">
+          </div>
+          <div class="content">
+            <h1>Complete Set of <br>Study Materials and <br>Tests</h1>
+            <p>Access a wide range of study guides, practice tests,<br>and focused materials tailored to your exam.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="live-sessions">
+        <div class="container">
+          <div class="image" id="deq">
+            <img th:src="@{/images/a6lq20s9iclkhyummjh4.jpg}" alt="Live sessions">
+          </div>
+          <div class="content2">
+            <h1>Expert-Led Live and <br>Recorded Sessions</h1>
+            <p>Attend live sessions or watch recorded classes by top educators, available <br>anytime to fit your schedule.</p>
+          </div>
+        </div>
+      </section>
     </div>
-    <button type="submit">Login</button>
-    <button type="button" onclick="location.href='/register'">Sign Up</button>
-</form>
-</body>
+
+    <div class="wrapper2">
+      <section class="contact" id="contact">
+        <div class="contact-form">
+          <h2>Contact us for more information.</h2>
+          <h1>Get in Touch</h1>
+          <p>We're here to help you.</p>
+          <form action="#" method="POST">
+            <label for="first-name">First Name</label>
+            <input type="text" id="first-name" name="first-name" required>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+            <div class="terms">
+              <input type="checkbox" id="terms" name="terms" required>
+              <label for="terms">I accept the terms</label>
+            </div>
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+      </section>
+    </div>
+
+    <div class="wrapper3">
+      <footer>
+        <div class="footer-left">
+          © Copyright 2024, All Rights Reserved
+        </div>
+        <div class="footer-right">
+          <a href="#">Support</a>
+          <a href="#">Terms & Conditions</a>
+          <a href="#">Privacy Policy</a>
+        </div>
+      </footer>
+    </div>
+	
+	<script>
+	  document.addEventListener('DOMContentLoaded', function() {
+	      const links = document.querySelectorAll('.nav_link');
+
+	      links.forEach(link => {
+	          link.addEventListener('click', function(event) {
+	              // Prevent the default action
+	              event.preventDefault();
+
+	              // Get the target section's ID from the href attribute
+	              const targetId = this.getAttribute('href').substring(1);
+	              const targetSection = document.getElementById(targetId);
+
+	              if (targetSection) {
+	                  // Scroll to the target section smoothly
+	                  targetSection.scrollIntoView({
+	                      behavior: 'smooth'
+	                  });
+	              } else if (targetId === 'home') {
+	                  // Scroll to the top of the page if 'home' is the target
+	                  window.scrollTo({
+	                      top: 0,
+	                      behavior: 'smooth'
+	                  });
+	              } else if (targetId === 'about') {
+	                  // Scroll to the hero section if 'about' is the target
+	                  
+	                  if (heroSection) {
+	                      heroSection.scrollIntoView({
+	                          behavior: 'smooth'
+	                      });
+	                  }
+	              }
+	          });
+	      });
+	  });
+	</script>
+	
+	
+	
+  </body>
 </html>
