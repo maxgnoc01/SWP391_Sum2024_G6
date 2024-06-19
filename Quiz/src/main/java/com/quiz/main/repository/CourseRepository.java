@@ -8,6 +8,10 @@ import org.springframework.stereotype.Repository;
 import com.quiz.main.model.Course;
 
 @Repository
+
 public interface CourseRepository extends JpaRepository<Course, Long> {
-    List<Course> findBySemesterName(String semesterName);
+    List<Course> findBySemesterId(Long semesterId);
+    List<Course> findByCourseName(String courseName);
+    void deleteBySemesterId(Long semesterId);
+
 }

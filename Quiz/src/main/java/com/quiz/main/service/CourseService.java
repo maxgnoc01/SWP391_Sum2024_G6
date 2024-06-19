@@ -16,14 +16,12 @@ public class CourseService {
     @Autowired
     private CourseRepository courseRepository;
 
+    
     public List<Course> findAll() {
         return courseRepository.findAll();
     }
 
-    public List<Course> findBySemester(String semesterName) {
-        return courseRepository.findBySemesterName(semesterName);
-    }
-
+    
     public Course save(Course course) {
         return courseRepository.save(course);
     }
@@ -31,4 +29,18 @@ public class CourseService {
     public void deleteById(Long id) {
         courseRepository.deleteById(id);
     }
+    public void createCourse(Course course) {
+        courseRepository.save(course);
+    }
+
+    public List<Course> getCoursesBySemesterId(Long semesterId) {
+        return courseRepository.findBySemesterId(semesterId);
+    }
+    public List<Course> getAllCourses() {
+        return courseRepository.findAll();
+    }
+    public List<Course> findBySemesterId(Long semesterId) {
+        return courseRepository.findBySemesterId(semesterId);
+    }
+   
 }

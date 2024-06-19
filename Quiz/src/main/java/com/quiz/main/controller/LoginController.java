@@ -38,6 +38,8 @@ public class LoginController {
                     return modelAndView;
                 }
             }
+        }else {
+			return new ModelAndView("redirect:/index"); // return index
         }
         ModelAndView modelAndView = new ModelAndView("login");
         modelAndView.addObject("error", "Invalid username or password");

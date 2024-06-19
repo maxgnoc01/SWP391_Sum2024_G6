@@ -34,6 +34,11 @@ public class UserController {
     public String showLoginForm() {
         return "login";
     }
+    @GetMapping("/index")
+	public String index() {
+		return "index"; // Trả về tên của view (index.html)
+	}
+
 
     // Removed duplicate /showRegister endpoint
 

@@ -1,8 +1,14 @@
 package com.quiz.main.model;
 
+import java.util.List;
+
 import javax.persistence.*;
 
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "course")
 public class Course {
@@ -11,15 +17,23 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String courseName;
     
-    @Column(nullable = false, unique = true)
-    private String semesterName;
+//    @Column(nullable = false)
+//    private Long semesterId;
+    
+    @ManyToOne
+    @JoinColumn(name = "semesterId")
+    private Semester semester;
+    	
 
-    // Getters and setters
+    
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Classes> classes;
     
     public Course() {
+    	
     }
 
 	public Long getId() {
@@ -38,12 +52,22 @@ public class Course {
 		this.courseName = courseName;
 	}
 
-	public String getSemesterName() {
-		return semesterName;
+	public Semester getSemester() {
+		return semester;
 	}
 
-	public void setSemesterName(String semesterName) {
-		this.semesterName = semesterName;
+	public void setSemester(Semester semester) {
+		this.semester = semester;
 	}
-    
+
+	
+
+	public List<Classes> getClasses() {
+		return classes;
+	}
+
+	public void setClasses(List<Classes> classes) {
+		this.classes = classes;
+	}
+	
 }

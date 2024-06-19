@@ -2,9 +2,13 @@ package com.quiz.main.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.HandlerInterceptor;
+
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -29,5 +33,10 @@ public class WebAppConfig implements WebMvcConfigurer {
                 return true;
             }
         }).addPathPatterns("/admin/**");
+    }
+    
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addFormatterForFieldType(Date.class, new org.springframework.format.datetime.DateFormatter("yyyy-MM-dd"));
     }
 }

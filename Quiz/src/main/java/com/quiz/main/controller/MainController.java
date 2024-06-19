@@ -46,17 +46,7 @@ public class MainController {
 	}
 
 
-	@GetMapping("/admin/home")
-	public ModelAndView adminHome(HttpSession session) {
-		ModelAndView modelAndView = new ModelAndView();
-		User currentUser = (User) session.getAttribute("currentUser");
-		if (currentUser != null && "ROLE_ADMIN".equals(currentUser.getRole())) {
-			modelAndView.setViewName("adminHome");
-		} else {
-			modelAndView.setViewName("redirect:/login"); // Redirect to login if not admin
-		}
-		return modelAndView;
-	}
+	
 	@GetMapping("/quizTimeout")
 	public String quizTimeout() {
 		return "quizTimeout";
