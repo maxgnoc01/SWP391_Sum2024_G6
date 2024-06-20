@@ -2,9 +2,13 @@ package com.quiz.main.model;
 
 import java.util.Map;
 
-public class QuizSubmission {
+import javax.persistence.Entity;
+
+@Entity
+public class TakeAnswer {
+	
     private Long quizId;
-    private Map<Long, Character> answers; // Question ID -> Answer ('A', 'B', 'C')
+    private Map<Long, String> answers; // Question ID -> Answer ('A', 'B', 'C')
 
     public Long getQuizId() {
         return quizId;
@@ -14,11 +18,11 @@ public class QuizSubmission {
         this.quizId = quizId;
     }
 
-    public Map<Long, Character> getAnswers() {
+    public Map<Long, String> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(Map<Long, Character> answers) {
+    public void setAnswers(Map<Long, String> answers) {
         this.answers = answers;
     }
 // Getters and setters

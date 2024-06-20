@@ -1,6 +1,13 @@
 package com.quiz.main.model;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "questions")
@@ -9,16 +16,25 @@ public class Question {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "bank_id")
+	private Long bankId;
 
-	private String text;
-	private String optionA;
-	private String optionB;
-	private String optionC;
-	private char correctAnswer; // Assuming 'A', 'B', or 'C'
-
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "quiz_id")
 	private Quiz quiz;
+	
+	@OneToMany(mappedBy = "questions", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<QuestionChoice> listChoice = new HashSet<QuestionChoice>();
+	
+	@Column
+	private QuestionType type;
+	
+	@Column
+	private String content;
 
 	// Standard getters and setters
 
@@ -30,51 +46,43 @@ public class Question {
 		this.id = id;
 	}
 
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
-	}
-
-	public String getOptionA() {
-		return optionA;
-	}
-
-	public void setOptionA(String optionA) {
-		this.optionA = optionA;
-	}
-
-	public String getOptionB() {
-		return optionB;
-	}
-
-	public void setOptionB(String optionB) {
-		this.optionB = optionB;
-	}
-
-	public String getOptionC() {
-		return optionC;
-	}
-
-	public void setOptionC(String optionC) {
-		this.optionC = optionC;
-	}
-
-	public char getCorrectAnswer() {
-		return correctAnswer;
-	}
-
-	public void setCorrectAnswer(char correctAnswer) {
-		this.correctAnswer = correctAnswer;
-	}
-
 	public Quiz getQuiz() {
 		return quiz;
 	}
 
 	public void setQuiz(Quiz quiz) {
 		this.quiz = quiz;
+	}
+
+	public Long getBankId() {
+		return bankId;
+	}
+
+	public void setBankId(Long bankId) {
+		this.bankId = bankId;
+	}
+
+	public QuestionType getType() {
+		return type;
+	}
+
+	public void setType(QuestionType type) {
+		this.type = type;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public Set<QuestionChoice> getListChoice() {
+		return listChoice;
+	}
+
+	public void setListChoice(Set<QuestionChoice> listChoice) {
+		this.listChoice = listChoice;
 	}
 }

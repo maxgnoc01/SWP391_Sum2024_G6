@@ -2,7 +2,11 @@ package com.quiz.main.service;
 
 import com.quiz.main.model.User;
 import com.quiz.main.model.UserDto;
+import com.quiz.main.model.component.GooglePojo;
 import com.quiz.main.repository.UserRepository;
+
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.Authentication;
@@ -15,13 +19,26 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User registerNewUser(UserDto userDto) {
-        User newUser = new User();
-        newUser.setUsername(userDto.getUsername());
-        newUser.setPassword(userDto.getPassword()); // Storing password as-is, without encoding
-        newUser.setEmail(userDto.getEmail());
-        newUser.setRole("ROLE_USER"); // Assign the default role directly as a string
-        return userRepository.save(newUser);
+//    public User registerNewUser(UserDto userDto) {
+//        User newUser = new User();
+//        newUser.setUsername(userDto.getUsername());
+////        newUser.setPassword(userDto.getPassword()); // Storing password as-is, without encoding
+//        newUser.setEmail(userDto.getEmail());
+//        newUser.setRole("ROLE_USER"); // Assign the default role directly as a string
+//        return userRepository.save(newUser);
+//    }
+    
+    public Optional<User> findUserByEmail(String mail) {
+    	Optional<User> userOptional = userRepository.findByEmail(mail);
+        return userOptional;
+    }
+    
+    public User registerNewGoogleUser(GooglePojo googlePojo) {
+    	User newUser = new User();
+    	newUser.setUsername(googlePojo.getEmail());
+    	newUser.setEmail(googlePojo.getEmail());
+    	newUser.setRole("ROLE_USER");
+    	return userRepository.save(newUser);
     }
 
     public User getAuthenticatedUser() {

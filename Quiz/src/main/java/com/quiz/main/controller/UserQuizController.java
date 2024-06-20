@@ -2,7 +2,7 @@ package com.quiz.main.controller;
 
 import com.quiz.main.model.Question;
 import com.quiz.main.model.Quiz;
-import com.quiz.main.model.QuizSubmission;
+import com.quiz.main.model.TakeAnswer;
 import com.quiz.main.model.User;
 import com.quiz.main.service.QuizService;
 import com.quiz.main.service.UserService;
@@ -46,13 +46,13 @@ public class UserQuizController {
         model.addAttribute("quiz", quiz);
         model.addAttribute("questions", quiz.getQuestions());
         model.addAttribute("duration", quiz.getDuration()); // Assuming quiz.getDuration() gives you the duration in minutes
-        model.addAttribute("quizSubmission", new QuizSubmission());
+        model.addAttribute("quizSubmission", new TakeAnswer());
 
         return "takeQuiz";
     }
 
     @PostMapping("/{quizId}/submit")
-    public String submitQuizAnswers(@PathVariable Long quizId, @ModelAttribute QuizSubmission submission, Model model, HttpSession session) {
+    public String submitQuizAnswers(@PathVariable Long quizId, @ModelAttribute TakeAnswer submission, Model model, HttpSession session) {
         // Evaluate the submission to calculate the score
         User currentUser = (User) session.getAttribute("currentUser");
         if (currentUser == null) {
@@ -81,7 +81,7 @@ public class UserQuizController {
     }
 
 
-    private int evaluateSubmission(QuizSubmission submission) {
+    private int evaluateSubmission(TakeAnswer submission) {
         int correctAnswers = 0;
         Quiz quiz = quizService.getQuizById(submission.getQuizId());
         for (Question question : quiz.getQuestions()) {

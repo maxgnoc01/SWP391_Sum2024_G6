@@ -95,17 +95,18 @@
 
 <body>
 
-<h1>Login</h1>
-<form th:action="@{/login}" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" />
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" />
-    <div>
-        <input type="checkbox" name="remember-me" /> Remember me
-    </div>
-    <button type="submit">Login</button>
-    <button type="button" onclick="location.href='/register'">Sign Up</button>
-</form>
+
+<div><h1>Login</h1></div>
+<br/>
+
+<div>
+	<a href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8082/login-google&response_type=code
+	    &client_id=212404135074-456vskk5p1q6b3nct7pa6pevji3acprl.apps.googleusercontent.com&approval_prompt=force">
+			<button type="button" >Sign In With Goole</button>
+		</a>  
+	  
+	  <br/>
+</div>
+
 </body>
 </html>

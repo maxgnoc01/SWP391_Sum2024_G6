@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -25,7 +26,18 @@ public class Quiz {
     private Integer duration;
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<QuizResult> quizResults = new HashSet<>();
+    
+    @Column
+    private double score;
+    
+    @Column
     private String title;
+    
+    @Column
+    private Date startDate;
+
+    @Column
+    private Date endDate;
 
     public Integer getDuration() {
         return duration;
@@ -58,6 +70,39 @@ public class Quiz {
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
-// Standard getters and setters
+
+	public Set<QuizResult> getQuizResults() {
+		return quizResults;
+	}
+
+	public void setQuizResults(Set<QuizResult> quizResults) {
+		this.quizResults = quizResults;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public double getScore() {
+		return score;
+	}
+
+	public void setScore(double score) {
+		this.score = score;
+	}
+    
+    
 
 }

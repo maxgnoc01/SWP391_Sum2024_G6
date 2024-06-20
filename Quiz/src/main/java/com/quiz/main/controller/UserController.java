@@ -23,11 +23,11 @@ public class UserController {
         return "register";
     }
 
-    @PostMapping("/register")
-    public String processRegistration(@ModelAttribute("userDto") UserDto userDto) {
-        userService.registerNewUser(userDto); // Adjusted to call registerNewUser
-        return "redirect:/login";
-    }
+//    @PostMapping("/register")
+//    public String processRegistration(@ModelAttribute("userDto") UserDto userDto) {
+//        userService.registerNewUser(userDto); // Adjusted to call registerNewUser
+//        return "redirect:/login";
+//    }
 
 
     @GetMapping("/login")

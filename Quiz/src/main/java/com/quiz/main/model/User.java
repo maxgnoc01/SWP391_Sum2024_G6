@@ -1,7 +1,14 @@
 package com.quiz.main.model;
 
+import java.util.List;
+
 import javax.persistence.*;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 public class User {
@@ -10,20 +17,27 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String username;
 
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
-    private String password;
+//    @Column(nullable = false)
+//    private String password;
 
     @Column(nullable = false)
     private String role; // Now a simple String field
 
     // Constructors, getters, and setters
-
+    
+    @Enumerated(EnumType.STRING)
+    private Provider provider;
+    
+    @ManyToMany(mappedBy = "studentList")
+    List<Classes> classList;
+    
+    
     public User() {
     }
 
@@ -51,13 +65,13 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+//    public String getPassword() {
+//        return password;
+//    }
+//
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
 
     public String getRole() {
         return role;
